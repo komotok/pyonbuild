@@ -256,11 +256,11 @@
       init_promiseAllSettled();
       nmp = window.nativeModuleProxy;
       MMKVManager = nmp.MMKVManager;
-      FileManager = nmp.DCDFileManager ?? nmp.RTNFileManager;
-      ClientInfoManager = nmp.InfoDictionaryManager ?? nmp.RTNClientInfoManager;
-      DeviceManager = nmp.DCDDeviceManager ?? nmp.RTNDeviceManager;
+      FileManager = nmp.NativeFileModule ?? nmp.RTNFileManager ?? nmp.DCDFileManager;
+      ClientInfoManager = nmp.NativeClientInfoModule ?? nmp.RTNClientInfoManager ?? nmp.InfoDictionaryManager;
+      DeviceManager = nmp.NativeDeviceModule ?? nmp.RTNDeviceManager ?? nmp.DCDDeviceManager;
       ({ BundleUpdaterManager } = nmp);
-      ThemeManager = nmp.RTNThemeManager ?? nmp.DCDTheme;
+      ThemeManager = nmp.NativeThemeModule ?? nmp.RTNThemeManager ?? nmp.DCDTheme;
     }
   });
 
@@ -3420,7 +3420,7 @@
       init_logger();
       init_toasts();
       import_react_native3 = __toESM(require_react_native());
-      versionHash = "a0d467a-main";
+      versionHash = "beaf689-main";
     }
   });
 
@@ -4307,7 +4307,7 @@
               }),
               /* @__PURE__ */ jsx(Text, {
                 variant: "text-md/normal",
-                children: "A crash occured while rendering a component. This could be caused by a plugin, Bunny or Discord itself."
+                children: "A crash occurred while rendering a component. This could be caused by a plugin, Bunny or Discord itself."
               }),
               /* @__PURE__ */ jsxs(Text, {
                 variant: "text-sm/normal",
@@ -10529,7 +10529,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"a0d467a-main"})`
+          useTrailing: () => `(${"beaf689-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11018,7 +11018,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager2.Build}`,
-          `Bunny: ${"a0d467a-main"}`,
+          `Bunny: ${"beaf689-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
