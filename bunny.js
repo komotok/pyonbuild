@@ -2952,9 +2952,10 @@
     Text: () => Text,
     TextInput: () => TextInput,
     TwinButtons: () => TwinButtons,
+    useSafeAreaInsets: () => useSafeAreaInsets,
     useSegmentedControlState: () => useSegmentedControlState
   });
-  var bySingularProp, findSingular, findProp, LegacyAlert, CompatButton, HelpMessage, SafeAreaView, SafeAreaProvider, ActionSheetRow, Button, TwinButtons, IconButton, RowButton, PressableScale, TableRow, TableRowIcon, TableRowTrailingText, TableRowGroup, TableSwitchRow, TableSwitch, TableRadio, TableCheckbox, FormSwitch, FormRadio, FormCheckbox, Card, RedesignCompat, Stack, TextInput, SegmentedControl, SegmentedControlPages, useSegmentedControlState, CompatSegmentedControl, FloatingActionButton, ActionSheet, BottomSheetTitleHeader, textsModule, Text, Forms, LegacyForm, LegacyFormArrow, LegacyFormCTA, LegacyFormCTAButton, LegacyFormCardSection, LegacyFormCheckbox, LegacyFormCheckboxRow, LegacyFormCheckmark, LegacyFormDivider, LegacyFormHint, LegacyFormIcon, LegacyFormInput, LegacyFormLabel, LegacyFormRadio, LegacyFormRadioGroup, LegacyFormRadioRow, LegacyFormRow, LegacyFormSection, LegacyFormSelect, LegacyFormSliderRow, LegacyFormSubLabel, LegacyFormSwitch, LegacyFormSwitchRow, LegacyFormTernaryCheckBox, LegacyFormText, LegacyFormTitle, FlashList;
+  var bySingularProp, findSingular, findProp, LegacyAlert, CompatButton, HelpMessage, SafeAreaView, SafeAreaProvider, useSafeAreaInsets, ActionSheetRow, Button, TwinButtons, IconButton, RowButton, PressableScale, TableRow, TableRowIcon, TableRowTrailingText, TableRowGroup, TableSwitchRow, TableSwitch, TableRadio, TableCheckbox, FormSwitch, FormRadio, FormCheckbox, Card, RedesignCompat, Stack, TextInput, SegmentedControl, SegmentedControlPages, useSegmentedControlState, CompatSegmentedControl, FloatingActionButton, ActionSheet, BottomSheetTitleHeader, textsModule, Text, Forms, LegacyForm, LegacyFormArrow, LegacyFormCTA, LegacyFormCTAButton, LegacyFormCardSection, LegacyFormCheckbox, LegacyFormCheckboxRow, LegacyFormCheckmark, LegacyFormDivider, LegacyFormHint, LegacyFormIcon, LegacyFormInput, LegacyFormLabel, LegacyFormRadio, LegacyFormRadioGroup, LegacyFormRadioRow, LegacyFormRow, LegacyFormSection, LegacyFormSelect, LegacyFormSliderRow, LegacyFormSubLabel, LegacyFormSwitch, LegacyFormSwitchRow, LegacyFormTernaryCheckBox, LegacyFormText, LegacyFormTitle, FlashList;
   var init_components = __esm({
     "src/metro/common/components.ts"() {
       "use strict";
@@ -2970,7 +2971,7 @@
       LegacyAlert = findByDisplayNameLazy("FluxContainer(Alert)");
       CompatButton = findByPropsLazy("Looks", "Colors", "Sizes");
       HelpMessage = findByNameLazy("HelpMessage");
-      ({ SafeAreaView, SafeAreaProvider } = lazyDestructure(() => findByProps("useSafeAreaInsets")));
+      ({ SafeAreaView, SafeAreaProvider, useSafeAreaInsets } = lazyDestructure(() => findByProps("useSafeAreaInsets")));
       ActionSheetRow = findProp("ActionSheetRow");
       Button = findSingular("Button");
       TwinButtons = findProp("TwinButtons");
@@ -3421,7 +3422,7 @@
       init_logger();
       init_toasts();
       import_react_native3 = __toESM(require_react_native());
-      versionHash = "5e3f9b7-main";
+      versionHash = "6f52993-main";
     }
   });
 
@@ -5909,6 +5910,7 @@
     useProxy(settings);
     var [search, setSearch] = React.useState("");
     var [sortFn, setSortFn] = React.useState(() => null);
+    var { bottom: bottomInset } = useSafeAreaInsets();
     var results = (0, import_react3.useMemo)(() => {
       var values = props.items;
       if (props.resolveItem)
@@ -6064,6 +6066,7 @@
           })
         }),
         props.installAction && /* @__PURE__ */ jsx(FloatingActionButton, {
+          positionBottom: bottomInset + 8,
           icon: findAssetId("PlusLargeIcon"),
           onPress: onInstallPress
         })
@@ -10535,7 +10538,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"5e3f9b7-main"})`
+          useTrailing: () => `(${"6f52993-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11024,7 +11027,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager2.Build}`,
-          `Bunny: ${"5e3f9b7-main"}`,
+          `Bunny: ${"6f52993-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
