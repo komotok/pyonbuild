@@ -255,7 +255,7 @@
       init_asyncIteratorSymbol();
       init_promiseAllSettled();
       nmp = window.nativeModuleProxy;
-      MMKVManager = nmp.MMKVManager;
+      MMKVManager = nmp.NativeCacheModule ?? nmp.MMKVManager;
       FileManager = nmp.NativeFileModule ?? nmp.RTNFileManager ?? nmp.DCDFileManager;
       ClientInfoManager = nmp.NativeClientInfoModule ?? nmp.RTNClientInfoManager ?? nmp.InfoDictionaryManager;
       DeviceManager = nmp.NativeDeviceModule ?? nmp.RTNDeviceManager ?? nmp.DCDDeviceManager;
@@ -3422,7 +3422,7 @@
       init_logger();
       init_toasts();
       import_react_native3 = __toESM(require_react_native());
-      versionHash = "6f52993-main";
+      versionHash = "99c1266-main";
     }
   });
 
@@ -10538,7 +10538,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"6f52993-main"})`
+          useTrailing: () => `(${"99c1266-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11027,7 +11027,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager2.Build}`,
-          `Bunny: ${"6f52993-main"}`,
+          `Bunny: ${"99c1266-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
