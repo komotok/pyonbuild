@@ -3422,7 +3422,7 @@
       init_logger();
       init_toasts();
       import_react_native3 = __toESM(require_react_native());
-      versionHash = "99c1266-main";
+      versionHash = "657c8eb-main";
     }
   });
 
@@ -4295,81 +4295,78 @@
     var styles = useStyles2();
     var debugInfo = getDebugInfo();
     return /* @__PURE__ */ jsx(ErrorBoundary, {
-      children: /* @__PURE__ */ jsxs(SafeAreaProvider, {
-        children: [
-          " ",
-          /* @__PURE__ */ jsxs(SafeAreaView, {
-            style: styles.container,
-            children: [
-              /* @__PURE__ */ jsxs(import_react_native12.View, {
-                style: {
-                  gap: 4
-                },
-                children: [
-                  /* @__PURE__ */ jsx(Text, {
-                    variant: "display-lg",
-                    children: "Uh oh."
-                  }),
-                  /* @__PURE__ */ jsx(Text, {
-                    variant: "text-md/normal",
-                    children: "A crash occurred while rendering a component. This could be caused by a plugin, Bunny or Discord itself."
-                  }),
-                  /* @__PURE__ */ jsxs(Text, {
-                    variant: "text-sm/normal",
-                    color: "text-muted",
-                    children: [
-                      debugInfo.os.name,
-                      "; ",
-                      debugInfo.discord.build,
-                      " (",
-                      debugInfo.discord.version,
-                      "); ",
-                      debugInfo.bunny.version
-                    ]
-                  })
-                ]
-              }),
-              /* @__PURE__ */ jsxs(import_react_native12.ScrollView, {
-                fadingEdgeLength: 64,
-                contentContainerStyle: {
-                  gap: 12
-                },
-                children: [
-                  /* @__PURE__ */ jsx(Codeblock, {
-                    selectable: true,
-                    children: props.error.message
-                  }),
-                  hasStack(props.error) && /* @__PURE__ */ jsx(ErrorStackCard, {
-                    error: props.error
-                  }),
-                  isComponentStack(props.error) ? /* @__PURE__ */ jsx(ErrorComponentStackCard, {
-                    componentStack: props.error.componentStack
-                  }) : null
-                ]
-              }),
-              /* @__PURE__ */ jsxs(Card, {
-                style: {
-                  gap: 6
-                },
-                children: [
-                  /* @__PURE__ */ jsx(Button, {
-                    text: "Reload Discord",
-                    onPress: () => BundleUpdaterManager.reload()
-                  }),
-                  !settings.safeMode?.enabled && /* @__PURE__ */ jsx(Button, {
-                    text: "Reload in Safe Mode",
-                    onPress: () => toggleSafeMode()
-                  }),
-                  /* @__PURE__ */ jsx(Button, {
-                    variant: "destructive",
-                    text: "Retry Render",
-                    onPress: () => props.rerender()
-                  })
-                ]
-              })
-            ]
-          })
-        ]
+      children: /* @__PURE__ */ jsx(SafeAreaProvider, {
+        children: /* @__PURE__ */ jsxs(SafeAreaView, {
+          style: styles.container,
+          children: [
+            /* @__PURE__ */ jsxs(import_react_native12.View, {
+              style: {
+                gap: 4
+              },
+              children: [
+                /* @__PURE__ */ jsx(Text, {
+                  variant: "display-lg",
+                  children: "Uh oh."
+                }),
+                /* @__PURE__ */ jsx(Text, {
+                  variant: "text-md/normal",
+                  children: "A crash occurred while rendering a component. This could be caused by a plugin, Bunny or Discord itself."
+                }),
+                /* @__PURE__ */ jsxs(Text, {
+                  variant: "text-sm/normal",
+                  color: "text-muted",
+                  children: [
+                    debugInfo.os.name,
+                    "; ",
+                    debugInfo.discord.build,
+                    " (",
+                    debugInfo.discord.version,
+                    "); ",
+                    debugInfo.bunny.version
+                  ]
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsxs(import_react_native12.ScrollView, {
+              fadingEdgeLength: 64,
+              contentContainerStyle: {
+                gap: 12
+              },
+              children: [
+                /* @__PURE__ */ jsx(Codeblock, {
+                  selectable: true,
+                  children: props.error.message
+                }),
+                hasStack(props.error) && /* @__PURE__ */ jsx(ErrorStackCard, {
+                  error: props.error
+                }),
+                isComponentStack(props.error) ? /* @__PURE__ */ jsx(ErrorComponentStackCard, {
+                  componentStack: props.error.componentStack
+                }) : null
+              ]
+            }),
+            /* @__PURE__ */ jsxs(Card, {
+              style: {
+                gap: 6
+              },
+              children: [
+                /* @__PURE__ */ jsx(Button, {
+                  text: "Reload Discord",
+                  onPress: () => BundleUpdaterManager.reload()
+                }),
+                !settings.safeMode?.enabled && /* @__PURE__ */ jsx(Button, {
+                  text: "Reload in Safe Mode",
+                  onPress: () => toggleSafeMode()
+                }),
+                /* @__PURE__ */ jsx(Button, {
+                  variant: "destructive",
+                  text: "Retry Render",
+                  onPress: () => props.rerender()
+                })
+              ]
+            })
+          ]
+        })
       })
     });
   }
@@ -10538,7 +10535,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"99c1266-main"})`
+          useTrailing: () => `(${"657c8eb-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11027,7 +11024,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager2.Build}`,
-          `Bunny: ${"99c1266-main"}`,
+          `Bunny: ${"657c8eb-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
