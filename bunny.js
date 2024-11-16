@@ -3422,7 +3422,7 @@
       init_logger();
       init_toasts();
       import_react_native3 = __toESM(require_react_native());
-      versionHash = "657c8eb-main";
+      versionHash = "e80ab84-main";
     }
   });
 
@@ -4604,6 +4604,9 @@
         type: "pressable",
         title: row.title,
         icon: row.icon,
+        IconComponent: () => /* @__PURE__ */ jsx(TableRow.Icon, {
+          source: row.icon
+        }),
         usePredicate: row.usePredicate,
         useTrailing: row.useTrailing,
         onPress: wrapOnPress(row.onPress, null, row.render, row.title()),
@@ -4666,9 +4669,11 @@
       "use strict";
       init_asyncIteratorSymbol();
       init_promiseAllSettled();
+      init_jsxRuntime();
       init_patcher();
       init_utils();
       init_common();
+      init_components();
       init_wrappers();
       init_settings2();
       init_shared();
@@ -10535,7 +10540,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"657c8eb-main"})`
+          useTrailing: () => `(${"e80ab84-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11024,7 +11029,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager2.Build}`,
-          `Bunny: ${"657c8eb-main"}`,
+          `Bunny: ${"e80ab84-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
