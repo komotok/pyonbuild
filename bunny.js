@@ -3959,7 +3959,7 @@
       };
       ({ before: before2, instead: instead2 } = require_cjs());
       metroModules = window.modules;
-      metroRequire = window.__r;
+      metroRequire = (id) => window.__r(+id);
       moduleSubscriptions = /* @__PURE__ */ new Map();
       blacklistedIds = /* @__PURE__ */ new Set();
       noopHandler = () => void 0;
@@ -4546,7 +4546,7 @@
       init_logger();
       init_toasts();
       import_react_native5 = __toESM(require_react_native());
-      versionHash = "9a82dfe-main";
+      versionHash = "46a2c6e-main";
     }
   });
 
@@ -5624,37 +5624,40 @@
     });
   }
   function patchPanelUI(unpatches) {
-    unpatches.push(after("default", findByNameLazy("getScreens", false), (_a, screens) => ({
-      ...screens,
-      VendettaCustomPage: {
-        title: "Bunny",
-        render: () => /* @__PURE__ */ jsx(CustomPageRenderer, {})
-      },
-      BUNNY_CUSTOM_PAGE: {
-        title: "Bunny",
-        render: () => /* @__PURE__ */ jsx(CustomPageRenderer, {})
-      }
-    })));
-    var unpatch = after("default", findByNameLazy("UserSettingsOverviewWrapper", false), (_a, ret) => {
-      var UserSettingsOverview = findInReactTree(ret.props.children, (n) => n.type?.name === "UserSettingsOverview");
-      unpatches.push(after("renderSupportAndAcknowledgements", UserSettingsOverview.type.prototype, (_args, { props: { children } }) => {
-        var index = children.findIndex((c2) => c2?.type?.name === "UploadLogsButton");
-        if (index !== -1)
-          children.splice(index, 1);
-      }));
-      unpatches.push(after("render", UserSettingsOverview.type.prototype, (_args, res) => {
-        var titles = [
-          i18n.Messages.BILLING_SETTINGS,
-          i18n.Messages.PREMIUM_SETTINGS
-        ];
-        var sections = findInReactTree(res.props.children, (n) => n?.children?.[1]?.type === LegacyFormSection)?.children || res.props.children;
-        if (sections) {
-          var index = sections.findIndex((c2) => titles.includes(c2?.props.label));
-          sections.splice(-~index || 4, 0, /* @__PURE__ */ jsx(SettingsSection, {}));
+    try {
+      unpatches.push(after("default", findByNameLazy("getScreens", false), (_a, screens) => ({
+        ...screens,
+        VendettaCustomPage: {
+          title: "Bunny",
+          render: () => /* @__PURE__ */ jsx(CustomPageRenderer, {})
+        },
+        BUNNY_CUSTOM_PAGE: {
+          title: "Bunny",
+          render: () => /* @__PURE__ */ jsx(CustomPageRenderer, {})
         }
-      }));
-    }, true);
-    unpatches.push(unpatch);
+      })));
+      var unpatch = after("default", findByNameLazy("UserSettingsOverviewWrapper", false), (_a, ret) => {
+        var UserSettingsOverview = findInReactTree(ret.props.children, (n) => n.type?.name === "UserSettingsOverview");
+        unpatches.push(after("renderSupportAndAcknowledgements", UserSettingsOverview.type.prototype, (_args, { props: { children } }) => {
+          var index = children.findIndex((c2) => c2?.type?.name === "UploadLogsButton");
+          if (index !== -1)
+            children.splice(index, 1);
+        }));
+        unpatches.push(after("render", UserSettingsOverview.type.prototype, (_args, res) => {
+          var titles = [
+            i18n.Messages.BILLING_SETTINGS,
+            i18n.Messages.PREMIUM_SETTINGS
+          ];
+          var sections = findInReactTree(res.props.children, (n) => n?.children?.[1]?.type === LegacyFormSection)?.children || res.props.children;
+          if (sections) {
+            var index = sections.findIndex((c2) => titles.includes(c2?.props.label));
+            sections.splice(-~index || 4, 0, /* @__PURE__ */ jsx(SettingsSection, {}));
+          }
+        }));
+      }, true);
+      unpatches.push(unpatch);
+    } catch (e) {
+    }
   }
   var init_panel = __esm({
     "src/lib/ui/settings/patches/panel.tsx"() {
@@ -11215,7 +11218,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"9a82dfe-main"})`
+          useTrailing: () => `(${"46a2c6e-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11712,7 +11715,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager.Build}`,
-          `Bunny: ${"9a82dfe-main"}`,
+          `Bunny: ${"46a2c6e-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
@@ -11753,6 +11756,11 @@
         set(v2) {
           _requireFunc = function patchedRequire(a) {
             if (a === 0) {
+              if (window.modules instanceof Map) {
+                window.modules = Object.fromEntries([
+                  ...window.modules
+                ]);
+              }
               onceIndexRequired(v2);
               _requireFunc = v2;
             } else
