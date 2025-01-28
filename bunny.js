@@ -2830,7 +2830,8 @@
         raw: manifest.main.raw ?? {},
         background: manifest.main.background
       };
-    } else if (manifest.spec === 2) {
+    }
+    if (manifest.spec === 2) {
       var semanticDefinitions = {};
       var background = manifest.background ? {
         ...omit(manifest.background, [
@@ -2850,14 +2851,16 @@
         }
       }
       if (manifest.rawColors) {
+        var draft = {};
         for (var key1 in manifest.rawColors) {
           var value1 = manifest.rawColors[key1];
           if (!value1)
             continue;
-          manifest.rawColors[key1] = normalizeToHex(value1);
+          draft[key1] = normalizeToHex(value1);
         }
         if (import_react_native2.Platform.OS === "android")
-          applyAndroidAlphaKeys(manifest.rawColors);
+          applyAndroidAlphaKeys(draft);
+        manifest.rawColors = draft;
       }
       return {
         spec: 2,
@@ -4549,7 +4552,7 @@
       init_logger();
       init_toasts();
       import_react_native5 = __toESM(require_react_native());
-      versionHash = "5ec4150-main";
+      versionHash = "e77e663-main";
     }
   });
 
@@ -11221,7 +11224,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"5ec4150-main"})`
+          useTrailing: () => `(${"e77e663-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11718,7 +11721,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager.Build}`,
-          `Bunny: ${"5ec4150-main"}`,
+          `Bunny: ${"e77e663-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
