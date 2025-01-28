@@ -2995,44 +2995,49 @@
   });
 
   // src/lib/addons/themes/colors/patches/background.tsx
+  function ThemeBackground({ children }) {
+    useObservable([
+      colorsPref
+    ]);
+    if (!_colorRef.current || colorsPref.customBackground === "hidden" || !_colorRef.current.background?.url || _colorRef.current.background?.blur && typeof _colorRef.current.background?.blur !== "number") {
+      return children;
+    }
+    return /* @__PURE__ */ jsx(import_react_native3.ImageBackground, {
+      style: {
+        flex: 1,
+        height: "100%"
+      },
+      source: {
+        uri: _colorRef.current.background?.url
+      },
+      blurRadius: _colorRef.current.background?.blur,
+      children
+    });
+  }
   function patchChatBackground() {
     var patches2 = [
-      after("default", MessagesWrapperConnected, (_2, ret) => {
-        useObservable([
-          colorsPref
-        ]);
-        if (!_colorRef.current || !_colorRef.current.background?.url || colorsPref.customBackground === "hidden")
-          return ret;
-        return /* @__PURE__ */ jsx(import_react_native3.ImageBackground, {
-          style: {
-            flex: 1,
-            height: "100%"
-          },
-          source: _colorRef.current.background?.url && {
-            uri: _colorRef.current.background.url
-          } || 0,
-          blurRadius: typeof _colorRef.current.background?.blur === "number" ? _colorRef.current.background?.blur : 0,
-          children: ret
-        });
-      }),
-      after("render", MessagesWrapper.prototype, (_2, ret) => {
+      after("render", Messages, (_2, ret) => {
         if (!_colorRef.current || !_colorRef.current.background?.url)
           return;
         var messagesComponent = findInReactTree(ret, (x2) => x2 && "HACK_fixModalInteraction" in x2.props && x2?.props?.style);
         if (messagesComponent) {
-          var backgroundColor = (0, import_chroma_js2.default)(messagesComponent.props.style.backgroundColor || "black").alpha(1 - (_colorRef.current.background?.opacity ?? 1));
-          messagesComponent.props.style = [
+          var flattened = import_react_native3.StyleSheet.flatten(messagesComponent.props.style);
+          var backgroundColor = (0, import_chroma_js2.default)(flattened.backgroundColor || "black").alpha(1 - (_colorRef.current.background?.opacity ?? 1)).hex();
+          messagesComponent.props.style = import_react_native3.StyleSheet.flatten([
             messagesComponent.props.style,
             {
               backgroundColor
             }
-          ];
+          ]);
         }
+        return /* @__PURE__ */ jsx(ThemeBackground, {
+          children: ret
+        });
       })
     ];
     return () => patches2.forEach((x2) => x2());
   }
-  var import_chroma_js2, import_react_native3, MessagesWrapperConnected, MessagesWrapper;
+  var import_chroma_js2, import_react_native3, Messages;
   var init_background = __esm({
     "src/lib/addons/themes/colors/patches/background.tsx"() {
       "use strict";
@@ -3044,12 +3049,10 @@
       init_patcher();
       init_storage2();
       init_utils();
-      init_lazy();
       init_metro();
       import_chroma_js2 = __toESM(require_chroma_js());
       import_react_native3 = __toESM(require_react_native());
-      MessagesWrapperConnected = findByNameLazy("MessagesWrapperConnected", false);
-      ({ MessagesWrapper } = lazyDestructure(() => findByProps("MessagesWrapper")));
+      Messages = findByFilePathLazy("components_native/chat/Messages.tsx", true);
     }
   });
 
@@ -4546,7 +4549,7 @@
       init_logger();
       init_toasts();
       import_react_native5 = __toESM(require_react_native());
-      versionHash = "46a2c6e-main";
+      versionHash = "5ec4150-main";
     }
   });
 
@@ -11218,7 +11221,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"46a2c6e-main"})`
+          useTrailing: () => `(${"5ec4150-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11715,7 +11718,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager.Build}`,
-          `Bunny: ${"46a2c6e-main"}`,
+          `Bunny: ${"5ec4150-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
