@@ -4552,7 +4552,7 @@
       init_logger();
       init_toasts();
       import_react_native5 = __toESM(require_react_native());
-      versionHash = "e77e663-main";
+      versionHash = "821cbf0-main";
     }
   });
 
@@ -5742,7 +5742,7 @@
       if (useIsFirstRender())
         return;
       var { sections } = findInReactTree(ret, (i) => i.props?.sections).props;
-      var index = -~sections.findIndex((i) => i.label === i18n.Messages.ACCOUNT_SETTINGS) || 1;
+      var index = -~sections.findIndex((i) => i.settings.includes("ACCOUNT")) || 1;
       Object.keys(registeredSections).forEach((sect) => {
         sections.splice(index++, 0, {
           label: sect,
@@ -5761,7 +5761,6 @@
       init_jsxRuntime();
       init_patcher();
       init_utils();
-      init_common();
       init_components();
       init_wrappers();
       init_settings2();
@@ -11224,7 +11223,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"e77e663-main"})`
+          useTrailing: () => `(${"821cbf0-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11721,7 +11720,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager.Build}`,
-          `Bunny: ${"e77e663-main"}`,
+          `Bunny: ${"821cbf0-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
