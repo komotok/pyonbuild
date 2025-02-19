@@ -1125,6 +1125,8 @@
           return Reflect.has(resolved, p);
         },
         get(target, p, receiver) {
+          if (false)
+            return true;
           var contextHolder = proxyContextHolder.get(target);
           if (contextHolder?.options) {
             var { exemptedEntries: isolatedEntries } = contextHolder.options;
@@ -1146,12 +1148,12 @@
           return cacheKeys;
         },
         getOwnPropertyDescriptor: (target, p) => {
+          if (isUnconfigurable(p))
+            return Reflect.getOwnPropertyDescriptor(target, p);
           var contextHolder = proxyContextHolder.get(target);
           var resolved = contextHolder?.factory();
           if (!resolved)
             throw new Error(`Trying to getOwnPropertyDescriptor of ${typeof resolved}`);
-          if (isUnconfigurable(p))
-            return Reflect.getOwnPropertyDescriptor(target, p);
           var descriptor = Reflect.getOwnPropertyDescriptor(resolved, p);
           if (descriptor)
             Object.defineProperty(target, p, descriptor);
@@ -3758,7 +3760,7 @@
     indexBlacklistFlag(Number(id));
   }
   function isBadExports(exports) {
-    return !exports || exports === window || exports["<!@ pylix was here :fuyusquish: !@>"] === null || exports.__proto__ === Object.prototype && Reflect.ownKeys(exports).length === 0;
+    return !exports || exports === window || exports["<!@ pylix was here :fuyusquish: !@>"] === null || exports.__proto__ === Object.prototype && Reflect.ownKeys(exports).length === 0 || exports.default?.[Symbol.toStringTag] === "IntlMessagesProxy";
   }
   function onModuleRequire(moduleExports, id) {
     indexExportsFlags(id, moduleExports);
@@ -4097,10 +4099,10 @@
       init_modules();
       init_dist();
       init_enums();
-      CACHE_VERSION = 100;
+      CACHE_VERSION = 102;
       BUNNY_METRO_CACHE_PATH = "caches/metro_modules.json";
       _metroCache = null;
-      getMetroCache = window.__getMetroCache = () => _metroCache;
+      getMetroCache = () => _metroCache;
       saveCache = debounce(() => {
         writeFile(BUNNY_METRO_CACHE_PATH, JSON.stringify(_metroCache));
       }, 1e3);
@@ -4552,7 +4554,7 @@
       init_logger();
       init_toasts();
       import_react_native5 = __toESM(require_react_native());
-      versionHash = "821cbf0-main";
+      versionHash = "e2a05a7-main";
     }
   });
 
@@ -11223,7 +11225,7 @@
             uri: pyoncord_default
           },
           render: () => Promise.resolve().then(() => (init_General(), General_exports)),
-          useTrailing: () => `(${"821cbf0-main"})`
+          useTrailing: () => `(${"e2a05a7-main"})`
         },
         {
           key: "BUNNY_PLUGINS",
@@ -11720,7 +11722,7 @@
         alert([
           "Failed to load Bunny!\n",
           `Build Number: ${ClientInfoManager.Build}`,
-          `Bunny: ${"821cbf0-main"}`,
+          `Bunny: ${"e2a05a7-main"}`,
           stack || e?.toString?.()
         ].join("\n"));
       }
